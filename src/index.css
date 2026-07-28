@@ -107,12 +107,19 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Particle Word Styling (PC Desktop Particle Canvas + Mobile Crisp Fallback)
+   Particle Word Styling (Active on BOTH Mobile & Desktop PC)
    -------------------------------------------------------------------------- */
 .particle-word-container {
   position: relative;
   width: 100%;
+  min-height: 56px;
   display: block;
+}
+
+@media (min-width: 768px) {
+  .particle-word-container {
+    min-height: 110px;
+  }
 }
 
 .particle-word-text {
@@ -120,31 +127,22 @@ body {
   font-style: italic;
   font-weight: 300;
   color: var(--c-cyan);
-  font-size: clamp(2rem, 8vw, 5.8rem);
+  font-size: clamp(2rem, 8.5vw, 5.8rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
-  display: block;
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  pointer-events: none;
 }
 
 .particle-word-canvas {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .particle-word-container {
-    height: 120px;
-  }
-  .particle-word-text {
-    display: none; /* Hide text on desktop so canvas particles form the word */
-  }
-  .particle-word-canvas {
-    display: block;
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: auto;
-  }
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
 }
 
 /* --------------------------------------------------------------------------

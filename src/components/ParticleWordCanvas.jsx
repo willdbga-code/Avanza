@@ -4,9 +4,6 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    // Only run canvas sampling on desktop/wide screens
-    if (window.innerWidth < 768) return;
-
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -17,12 +14,16 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
 
     function setup() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const rect = canvas.getBoundingClientRect();
-      const width = rect.width || canvas.parentElement.offsetWidth || 600;
-      const height = rect.height || 110;
+      const container = canvas.parentElement;
+      const width = container ? container.offsetWidth : (window.innerWidth - 32);
+      // Give sufficient height on mobile so font sampling never cuts off
+      const height = Math.max(56, Math.min(width * 0.28, 120));
 
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
       canvas.width = width * dpr;
       canvas.height = height * dpr;
+
       ctx.scale(dpr, dpr);
 
       // Offscreen canvas to sample text pixels
@@ -31,34 +32,36 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
       offCanvas.height = height;
       const offCtx = offCanvas.getContext('2d');
 
-      const fontSize = Math.min(width / (text.length * 0.54), height * 0.85);
+      // Calculate font size responsive to container width
+      const fontSize = Math.min(width / (text.length * 0.52), height * 0.82);
       offCtx.font = `italic 300 ${fontSize}px "Fraunces", serif`;
       offCtx.fillStyle = '#FFFFFF';
       offCtx.textAlign = 'left';
       offCtx.textBaseline = 'middle';
-      offCtx.fillText(text, 2, height / 2);
+      offCtx.fillText(text, 0, height / 2);
 
       const imgData = offCtx.getImageData(0, 0, width, height);
       const data = imgData.data;
       particles = [];
 
-      const step = 3;
+      // Sampling step: denser on small screens for sharp detail
+      const step = width < 480 ? 2 : 3;
 
       for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
           const index = (y * width + x) * 4;
           const alpha = data[index + 3];
-          if (alpha > 128) {
+          if (alpha > 120) {
             particles.push({
               targetX: x,
               targetY: y,
-              x: x + (Math.random() - 0.5) * 80,
-              y: y + (Math.random() - 0.5) * 80,
+              x: x + (Math.random() - 0.5) * 60,
+              y: y + (Math.random() - 0.5) * 60,
               vx: (Math.random() - 0.5) * 0.5,
               vy: (Math.random() - 0.5) * 0.5,
-              radius: Math.random() * 1.2 + 0.9,
+              radius: width < 480 ? (Math.random() * 0.9 + 0.7) : (Math.random() * 1.2 + 0.9),
               color: Math.random() > 0.3 ? '#5BC2D8' : '#7DE1F5',
-              alpha: Math.random() * 0.7 + 0.3
+              alpha: Math.random() * 0.75 + 0.25
             });
           }
         }
@@ -68,15 +71,30 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
     setup();
 
     let mouse = { x: -1000, y: -1000 };
-    const handleMouseMove = (e) => {
+
+    const updatePointer = (clientX, clientY) => {
       const rect = canvas.getBoundingClientRect();
       mouse = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
+        x: clientX - rect.left,
+        y: clientY - rect.top
       };
     };
 
+    const handleMouseMove = (e) => updatePointer(e.clientX, e.clientY);
+    const handleTouchMove = (e) => {
+      if (e.touches && e.touches[0]) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    };
+    const handleTouchStart = (e) => {
+      if (e.touches && e.touches[0]) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
 
     function animate() {
       const rect = canvas.getBoundingClientRect();
@@ -101,8 +119,8 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
         const mdx = mouse.x - p.x;
         const mdy = mouse.y - p.y;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (mdist < 60) {
-          const force = (60 - mdist) / 60;
+        if (mdist < 55) {
+          const force = (55 - mdist) / 55;
           p.x -= (mdx / mdist) * force * 5;
           p.y -= (mdy / mdist) * force * 5;
         }
@@ -129,6 +147,8 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('resize', handleResize);
       if (animId) cancelAnimationFrame(animId);
     };
@@ -136,12 +156,12 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
 
   return (
     <div className="particle-word-container">
-      {/* HTML text fallback visible 100% on mobile and desktop */}
+      {/* Subtle HTML text underlay so word is 100% visible on any screen */}
       <span className="particle-word-text">
         {text}
       </span>
 
-      {/* Desktop Canvas particle overlay */}
+      {/* Live Canvas particles running on both Mobile & Desktop */}
       <canvas
         ref={canvasRef}
         className="particle-word-canvas"
