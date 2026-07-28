@@ -1,0 +1,530 @@
+/* ==========================================================================
+   Avanza E-Mobility — CSS Design System
+   ========================================================================== */
+
+:root {
+  --font-fraunces: 'Fraunces', serif;
+  --font-geist: 'Geist', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --c-ink: #080D1A;
+  --c-marine-deep: #060B14;
+  --c-cyan: #5BC2D8;
+  --c-cyan-light: #7DE1F5;
+  --c-off: #F5F3EE;
+  --c-off-soft: #A0AAB8;
+  --c-mute: #546478;
+  --c-line: rgba(255, 255, 255, 0.09);
+  --c-line-cyan: rgba(91, 194, 216, 0.35);
+
+  --cyan-plasma: #5BC2D8;
+  --ocean-vector: #3B98AD;
+  --poolside-light: #7DE1F5;
+  --glass-border: rgba(91, 194, 216, 0.2);
+  --glass-bg: rgba(8, 13, 26, 0.88);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-geist);
+  background-color: var(--c-ink);
+  color: var(--c-off);
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--c-ink);
+  color: var(--c-off);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   Cursor personalizado
+   -------------------------------------------------------------------------- */
+@media (pointer: fine) {
+
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: var(--c-cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px var(--c-cyan);
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(91, 194, 216, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.custom-cursor-ring.is-hovering {
+  width: 56px;
+  height: 56px;
+  border-color: var(--c-cyan);
+  background: rgba(91, 194, 216, 0.1);
+}
+
+.custom-cursor-ring.is-clicking {
+  width: 28px;
+  height: 28px;
+  border-color: #FFFFFF;
+  background: rgba(91, 194, 216, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.digitz-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background: rgba(8, 13, 26, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.digitz-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .digitz-header-inner {
+    padding: 16px 56px;
+  }
+}
+
+.digitz-logo-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.digitz-logo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(91, 194, 216, 0.12);
+  border: 1px solid var(--c-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.digitz-logo-text {
+  font-family: var(--font-fraunces);
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: var(--c-off);
+  letter-spacing: -0.02em;
+}
+
+/* Digitz Center Nav Box */
+.digitz-nav-box {
+  display: none;
+  align-items: center;
+  background: rgba(12, 19, 36, 0.6);
+  border: 1px solid var(--c-line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .digitz-nav-box {
+    display: flex;
+  }
+}
+
+.digitz-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 18px;
+  text-decoration: none;
+  border-right: 1px solid var(--c-line);
+  transition: background 0.25s ease;
+  position: relative;
+}
+
+.digitz-nav-item:last-child {
+  border-right: none;
+}
+
+.digitz-nav-item:hover {
+  background: rgba(91, 194, 216, 0.08);
+}
+
+.digitz-nav-num {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--c-mute);
+  margin-bottom: 2px;
+}
+
+.digitz-nav-label {
+  font-family: var(--font-fraunces);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--c-off-soft);
+  transition: color 0.2s ease;
+}
+
+.digitz-nav-item:hover .digitz-nav-label,
+.digitz-nav-item.active .digitz-nav-label {
+  color: var(--c-cyan);
+}
+
+/* Digitz Contact Button */
+.digitz-btn-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px;
+  font-family: var(--font-geist);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-off);
+  background: transparent;
+  border: 1px solid var(--c-line-cyan);
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.digitz-btn-contact:hover {
+  border-color: var(--c-cyan);
+  color: var(--c-cyan);
+  background: rgba(91, 194, 216, 0.1);
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   Digitz Hero Section
+   -------------------------------------------------------------------------- */
+.digitz-hero {
+  position: relative;
+  background: var(--c-ink);
+  padding: 90px 24px 70px 24px;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--c-line);
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .digitz-hero {
+    padding: 130px 56px 110px 56px;
+    min-height: 720px;
+  }
+}
+
+.digitz-hero-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.digitz-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--c-cyan);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.digitz-tag-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--c-cyan);
+  border-radius: 1px;
+}
+
+.digitz-title {
+  font-family: var(--font-fraunces);
+  font-size: clamp(2.4rem, 6.8vw, 6.2rem);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--c-off);
+  max-width: 1180px;
+}
+
+.digitz-title-cyan {
+  color: var(--c-cyan);
+  font-style: italic;
+}
+
+.digitz-subtitle {
+  font-family: var(--font-geist);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 400;
+  color: var(--c-off-soft);
+  line-height: 1.55;
+  max-width: 760px;
+  margin-top: 36px;
+}
+
+.digitz-hero-btns {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.btn-digitz-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  font-family: var(--font-geist);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--c-ink);
+  background: var(--c-cyan);
+  border: 1px solid var(--c-cyan);
+  border-radius: 9999px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-digitz-primary:hover {
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  color: var(--c-ink);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(91, 194, 216, 0.35);
+}
+
+.btn-digitz-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  font-family: var(--font-geist);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--c-off);
+  background: transparent;
+  border: 1px solid var(--c-line-cyan);
+  border-radius: 9999px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-digitz-ghost:hover {
+  border-color: var(--c-cyan);
+  color: var(--c-cyan);
+  background: rgba(91, 194, 216, 0.08);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Vertical Slices Showcase (Secteurs Digitz Style)
+   -------------------------------------------------------------------------- */
+.section-showcase {
+  background: var(--c-ink);
+  padding: 80px 24px;
+  position: relative;
+  border-top: 1px solid var(--c-line);
+}
+
+@media (min-width: 1024px) {
+  .section-showcase {
+    padding: 100px 56px;
+  }
+}
+
+.showcase-header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--c-line);
+}
+
+@media (min-width: 1024px) {
+  .showcase-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.showcase-slices-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: auto;
+  margin-top: 40px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+}
+
+@media (min-width: 768px) {
+  .showcase-slices-row {
+    flex-direction: row;
+    height: 500px;
+    gap: 0;
+  }
+}
+
+.slice-item {
+  flex: 1;
+  position: relative;
+  min-height: 220px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: flex 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px solid var(--c-line);
+}
+
+@media (min-width: 768px) {
+  .slice-item {
+    min-height: 100%;
+    border-bottom: none;
+    border-right: 1px solid var(--c-line);
+  }
+
+  .slice-item:last-child {
+    border-right: none;
+  }
+
+  .slice-item.active {
+    flex: 3;
+  }
+}
+
+.slice-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s ease, filter 0.5s ease;
+}
+
+.slice-item.active .slice-bg {
+  transform: scale(1.06);
+  filter: brightness(0.65) contrast(1.1);
+}
+
+.slice-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6, 11, 20, 0.95) 0%, rgba(6, 11, 20, 0.4) 60%, rgba(6, 11, 20, 0.7) 100%);
+}
+
+.slice-content {
+  position: relative;
+  z-index: 2;
+  padding: 32px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* --------------------------------------------------------------------------
+   Soluções Grid & Tech Matrix
+   -------------------------------------------------------------------------- */
+.solutions-grid-3col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+@media (min-width: 768px) {
+  .solutions-grid-3col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .solutions-grid-3col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sol-card-digitz {
+  background: rgba(12, 19, 36, 0.6);
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.35s ease;
+}
+
+.sol-card-digitz:hover {
+  border-color: var(--c-cyan);
+  background: rgba(12, 19, 36, 0.9);
+  box-shadow: 0 12px 35px rgba(6, 11, 20, 0.8), 0 0 20px rgba(91, 194, 216, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   Utilidade Classes & Layout Container
+   -------------------------------------------------------------------------- */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 56px;
+  }
+}
+
+.section-padding {
+  padding: 90px 0;
+}
