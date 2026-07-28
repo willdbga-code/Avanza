@@ -4,6 +4,9 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    // Only run canvas sampling on desktop/wide screens
+    if (window.innerWidth < 768) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -15,8 +18,8 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
     function setup() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const rect = canvas.getBoundingClientRect();
-      const width = rect.width || canvas.parentElement.offsetWidth || window.innerWidth;
-      const height = rect.height || 80;
+      const width = rect.width || canvas.parentElement.offsetWidth || 600;
+      const height = rect.height || 110;
 
       canvas.width = width * dpr;
       canvas.height = height * dpr;
@@ -28,20 +31,18 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
       offCanvas.height = height;
       const offCtx = offCanvas.getContext('2d');
 
-      // Calculate font size responsive to container width
-      const fontSize = Math.min(width / (text.length * 0.54), height * 0.82);
+      const fontSize = Math.min(width / (text.length * 0.54), height * 0.85);
       offCtx.font = `italic 300 ${fontSize}px "Fraunces", serif`;
       offCtx.fillStyle = '#FFFFFF';
       offCtx.textAlign = 'left';
       offCtx.textBaseline = 'middle';
       offCtx.fillText(text, 2, height / 2);
 
-      // Sample pixels
       const imgData = offCtx.getImageData(0, 0, width, height);
       const data = imgData.data;
       particles = [];
 
-      const step = Math.max(2, Math.floor(fontSize / 24));
+      const step = 3;
 
       for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
@@ -76,16 +77,6 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    const handleTouchMove = (e) => {
-      if (e.touches && e.touches[0]) {
-        const rect = canvas.getBoundingClientRect();
-        mouse = {
-          x: e.touches[0].clientX - rect.left,
-          y: e.touches[0].clientY - rect.top
-        };
-      }
-    };
-    window.addEventListener('touchmove', handleTouchMove);
 
     function animate() {
       const rect = canvas.getBoundingClientRect();
@@ -97,7 +88,6 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        // Physics spring to target
         const dx = p.targetX - p.x;
         const dy = p.targetY - p.y;
         p.vx += dx * 0.05;
@@ -108,7 +98,6 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Mouse repulsion
         const mdx = mouse.x - p.x;
         const mdy = mouse.y - p.y;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
@@ -118,7 +107,6 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
           p.y -= (mdy / mdist) * force * 5;
         }
 
-        // Slight ambient wave
         const floatOffset = Math.sin(Date.now() * 0.003 + i) * 0.3;
 
         ctx.beginPath();
@@ -141,22 +129,22 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('resize', handleResize);
       if (animId) cancelAnimationFrame(animId);
     };
   }, [text]);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: 'clamp(50px, 12vw, 110px)' }}>
+    <div className="particle-word-container">
+      {/* HTML text fallback visible 100% on mobile and desktop */}
+      <span className="particle-word-text">
+        {text}
+      </span>
+
+      {/* Desktop Canvas particle overlay */}
       <canvas
         ref={canvasRef}
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'block',
-          pointerEvents: 'auto'
-        }}
+        className="particle-word-canvas"
       />
     </div>
   );

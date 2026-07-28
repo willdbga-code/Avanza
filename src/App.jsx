@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import CustomReticleCursor from './components/CustomReticleCursor';
 import ArchitecturalNavbar from './components/ArchitecturalNavbar';
 import HeroSection from './components/HeroSection';
 import SlicedVerticalShowcase from './components/SlicedVerticalShowcase';
@@ -13,15 +12,12 @@ export default function App() {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh', overflowX: 'hidden' }}>
-      {/* 0. Custom Physics Reticle Cursor (Digitz Style) */}
-      <CustomReticleCursor />
-
       {/* 1. Architectural Header */}
       <ArchitecturalNavbar onOpenContact={() => setIsContactOpen(true)} />
 
       {/* Main Content Flow */}
       <main>
-        {/* 2. Hero Section with Interactive WebGL Canvas Particles & Kinetic Text Reveal */}
+        {/* 2. Hero Section with WebGL Background & Particle Word */}
         <HeroSection onOpenContact={() => setIsContactOpen(true)} />
 
         {/* 3. Sliced Vertical Curtain Showcase (Motos, E-Bikes, Ads, E-commerce) */}
@@ -29,14 +25,14 @@ export default function App() {
           <SlicedVerticalShowcase onOpenContact={() => setIsContactOpen(true)} />
         </div>
 
-        {/* 4. Soluções Integradas Digitz (Brandbook, Photo/Video, Instagram, Landing, E-commerce, Ads) */}
+        {/* 4. Soluções Integradas (Brandbook, Photo/Video, Instagram, Landing, E-commerce, Ads) */}
         <SolutionsMatrix onOpenContact={() => setIsContactOpen(true)} />
 
         {/* 5. Simulador de Tração E-Mobility */}
         <VectorSimulator onOpenContact={() => setIsContactOpen(true)} />
       </main>
 
-      {/* 6. Digitz Footer */}
+      {/* 6. Footer */}
       <Footer onOpenContact={() => setIsContactOpen(true)} />
 
       {/* 7. Contact Form Glass Modal */}
