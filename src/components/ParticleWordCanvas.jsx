@@ -16,8 +16,8 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const container = canvas.parentElement;
       const width = container ? container.offsetWidth : (window.innerWidth - 32);
-      // Give sufficient height on mobile so font sampling never cuts off
-      const height = Math.max(56, Math.min(width * 0.28, 120));
+      // Clean proportional height so text fits with zero overflow
+      const height = Math.max(50, Math.round(width * 0.21));
 
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
@@ -32,19 +32,17 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
       offCanvas.height = height;
       const offCtx = offCanvas.getContext('2d');
 
-      // Calculate font size responsive to container width
-      const fontSize = Math.min(width / (text.length * 0.52), height * 0.82);
+      const fontSize = Math.min(width / (text.length * 0.52), height * 0.88);
       offCtx.font = `italic 300 ${fontSize}px "Fraunces", serif`;
       offCtx.fillStyle = '#FFFFFF';
       offCtx.textAlign = 'left';
       offCtx.textBaseline = 'middle';
-      offCtx.fillText(text, 0, height / 2);
+      offCtx.fillText(text, 2, height / 2);
 
       const imgData = offCtx.getImageData(0, 0, width, height);
       const data = imgData.data;
       particles = [];
 
-      // Sampling step: denser on small screens for sharp detail
       const step = width < 480 ? 2 : 3;
 
       for (let y = 0; y < height; y += step) {
@@ -55,11 +53,11 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
             particles.push({
               targetX: x,
               targetY: y,
-              x: x + (Math.random() - 0.5) * 60,
-              y: y + (Math.random() - 0.5) * 60,
+              x: x + (Math.random() - 0.5) * 50,
+              y: y + (Math.random() - 0.5) * 50,
               vx: (Math.random() - 0.5) * 0.5,
               vy: (Math.random() - 0.5) * 0.5,
-              radius: width < 480 ? (Math.random() * 0.9 + 0.7) : (Math.random() * 1.2 + 0.9),
+              radius: width < 480 ? (Math.random() * 0.95 + 0.75) : (Math.random() * 1.25 + 0.9),
               color: Math.random() > 0.3 ? '#5BC2D8' : '#7DE1F5',
               alpha: Math.random() * 0.75 + 0.25
             });
@@ -155,17 +153,8 @@ export default function ParticleWordCanvas({ text = "elétrica." }) {
   }, [text]);
 
   return (
-    <div className="particle-word-container">
-      {/* Subtle HTML text underlay so word is 100% visible on any screen */}
-      <span className="particle-word-text">
-        {text}
-      </span>
-
-      {/* Live Canvas particles running on both Mobile & Desktop */}
-      <canvas
-        ref={canvasRef}
-        className="particle-word-canvas"
-      />
+    <div className="particle-word-box">
+      <canvas ref={canvasRef} style={{ display: 'block', width: '100%' }} />
     </div>
   );
 }
