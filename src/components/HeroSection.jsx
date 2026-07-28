@@ -23,7 +23,7 @@ export default function HeroSection({ onOpenContact }) {
         </h1>
 
         {/* Line 2: Dynamic Particle Word Canvas for "elétrica." */}
-        <div style={{ maxWidth: '780px', margin: '8px 0 0 0' }}>
+        <div style={{ maxWidth: '780px', margin: '4px 0 0 0' }}>
           <ParticleWordCanvas text="elétrica." />
         </div>
 
