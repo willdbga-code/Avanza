@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CustomReticleCursor from './components/CustomReticleCursor';
 import ArchitecturalNavbar from './components/ArchitecturalNavbar';
 import HeroSection from './components/HeroSection';
 import SlicedVerticalShowcase from './components/SlicedVerticalShowcase';
@@ -12,12 +13,15 @@ export default function App() {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh', overflowX: 'hidden' }}>
+      {/* 0. Custom Physics Reticle Cursor (Active ONLY on Desktop PC, Disabled on Mobile) */}
+      <CustomReticleCursor />
+
       {/* 1. Architectural Header */}
       <ArchitecturalNavbar onOpenContact={() => setIsContactOpen(true)} />
 
       {/* Main Content Flow */}
       <main>
-        {/* 2. Hero Section with WebGL Background & Particle Word */}
+        {/* 2. Hero Section with WebGL Background & Interactive Particle Word Canvas */}
         <HeroSection onOpenContact={() => setIsContactOpen(true)} />
 
         {/* 3. Sliced Vertical Curtain Showcase (Motos, E-Bikes, Ads, E-commerce) */}
