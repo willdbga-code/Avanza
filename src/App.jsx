@@ -7,17 +7,32 @@ import SolutionsMatrix from './components/SolutionsMatrix';
 import VectorSimulator from './components/VectorSimulator';
 import ContactGlassModal from './components/ContactGlassModal';
 import Footer from './components/Footer';
+import Z8Presentation from './components/Z8Presentation';
 
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [currentView, setCurrentView] = useState('site'); // 'site' | 'z8-presentation'
+
+  if (currentView === 'z8-presentation') {
+    return (
+      <div style={{ position: 'relative', minHeight: '100vh', overflowX: 'hidden' }}>
+        <CustomReticleCursor />
+        <Z8Presentation onBackToSite={() => setCurrentView('site')} />
+        <ContactGlassModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+      </div>
+    );
+  }
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh', overflowX: 'hidden' }}>
-      {/* 0. Custom Physics Reticle Cursor (Active ONLY on Desktop PC, Disabled on Mobile) */}
+      {/* 0. Custom Physics Reticle Cursor (Active ONLY on Desktop PC) */}
       <CustomReticleCursor />
 
       {/* 1. Architectural Header */}
-      <ArchitecturalNavbar onOpenContact={() => setIsContactOpen(true)} />
+      <ArchitecturalNavbar
+        onOpenContact={() => setIsContactOpen(true)}
+        onOpenZ8Presentation={() => setCurrentView('z8-presentation')}
+      />
 
       {/* Main Content Flow */}
       <main>

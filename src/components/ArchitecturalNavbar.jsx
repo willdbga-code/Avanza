@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X, Sparkles } from 'lucide-react';
 
 const navItems = [
   { n: '01', label: 'E-Mobility', href: '#sec-hero' },
@@ -8,7 +8,7 @@ const navItems = [
   { n: '04', label: 'Simulador', href: '#simulador' }
 ];
 
-export default function ArchitecturalNavbar({ onOpenContact }) {
+export default function ArchitecturalNavbar({ onOpenContact, onOpenZ8Presentation }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -32,8 +32,29 @@ export default function ArchitecturalNavbar({ onOpenContact }) {
           ))}
         </nav>
 
-        {/* Right: Contact Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        {/* Right: Contact & Z8 Pitch Button */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <button
+            onClick={onOpenZ8Presentation}
+            style={{
+              background: 'rgba(91, 194, 216, 0.12)',
+              border: '1px solid var(--c-cyan)',
+              color: 'var(--c-cyan)',
+              padding: '8px 14px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              letterSpacing: '0.05em'
+            }}
+          >
+            <Sparkles size={13} />
+            <span>Proposta Loja Z8</span>
+          </button>
+
           <button onClick={onOpenContact} className="digitz-btn-contact">
             <span>Entrar em Contato</span>
             <ArrowRight size={14} />
@@ -69,6 +90,30 @@ export default function ArchitecturalNavbar({ onOpenContact }) {
             gap: '12px'
           }}
         >
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              onOpenZ8Presentation();
+            }}
+            style={{
+              background: 'rgba(91, 194, 216, 0.15)',
+              border: '1px solid var(--c-cyan)',
+              color: 'var(--c-cyan)',
+              padding: '12px',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px'
+            }}
+          >
+            <Sparkles size={14} />
+            <span>Ver Proposta Comercial Loja Z8</span>
+          </button>
+
           {navItems.map((item) => (
             <a
               key={item.n}
