@@ -5,6 +5,7 @@ export interface ProjectCase {
   slug: string
   name: string
   services: string
+  resultHighlight?: string
   category: 'Branding' | 'Ecossistema Digital' | 'Estratégia' | 'Conteúdo'
   year: string
   image: string
@@ -79,6 +80,40 @@ export const HOME_CONTENT = {
 export const PROJECTS: ProjectCase[] = [
   {
     id: '01',
+    slug: 'loja-z8',
+    name: 'Loja Z8',
+    services: 'Tráfego Pago, Conteúdo & Ecossistema Digital',
+    resultHighlight: '+160% em 3 meses · ROI 7× em tráfego pago',
+    category: 'Ecossistema Digital',
+    year: '2026',
+    image: '/images/case-z8.jpg',
+    tagline:
+      'Mobilidade elétrica com posicionamento autoral, aquisição previsível e retorno real sobre mídia.',
+    clientContext:
+      'Referência em mobilidade elétrica com linha de motos e bicicletas elétricas, a Loja Z8 precisava transformar o interesse crescente do público em demanda qualificada e constante — unindo presença digital à altura dos veículos com campanhas de tráfego pago orientadas a vendas reais.',
+    investigation:
+      'Mapeamos a jornada de quem pesquisa mobilidade elétrica antes de visitar a loja: o comprador não busca apenas ficha técnica, mas confiança visual, demonstração real no uso urbano e facilidade para tirar dúvidas e agendar o test-drive sem atrito.',
+    basicDoneWell:
+      'Estruturamos um ecossistema integrado de aquisição e percepção de valor: gestão cirúrgica de tráfego pago no Google e Meta Ads, fotografia editorial dos modelos, produção de Reels cinematográficos, gestão estratégica de Instagram e página de conversão focada em vendas.',
+    ecosystemDelivered: [
+      'Gestão estratégica de tráfego pago (Google & Meta Ads)',
+      'Fotografia editorial de veículos e produção de Reels',
+      'Gestão de posicionamento e conteúdo no Instagram',
+      'Landing page de vendas e agendamento de test-drive',
+    ],
+    impactMetrics: [
+      { value: '+160%', label: 'crescimento relatado nos últimos 3 meses' },
+      { value: '7×', label: 'ROI no investimento de tráfego pago' },
+      { value: '90 dias', label: 'de tração contínua em aquisição e vendas' },
+    ],
+    quote: {
+      text: 'Nos últimos 3 meses registramos 160% de crescimento e um ROI de 7× sobre o investimento em tráfego pago. A avanza alinhou posicionamento, conteúdo e mídia com foco total em resultado real.',
+      author: 'Loja Z8',
+      role: 'Cliente avanza · Mobilidade Elétrica',
+    },
+  },
+  {
+    id: '02',
     slug: 'lumina-arquitetura',
     name: 'Lúmina Arquitetura',
     services: 'Posicionamento, Ecossistema Digital',
@@ -110,7 +145,7 @@ export const PROJECTS: ProjectCase[] = [
     },
   },
   {
-    id: '02',
+    id: '03',
     slug: 'kora-movimento',
     name: 'Kora Movimento',
     services: 'Branding, Identidade & Comunidade',
@@ -142,7 +177,7 @@ export const PROJECTS: ProjectCase[] = [
     },
   },
   {
-    id: '03',
+    id: '04',
     slug: 'visao-precisa-tecnica',
     name: 'Visão Precisa & Técnica',
     services: 'Direção de Arte, Fotografia & Audiovisual',
@@ -175,7 +210,7 @@ export const PROJECTS: ProjectCase[] = [
     },
   },
   {
-    id: '04',
+    id: '05',
     slug: 'norte-capital',
     name: 'Norte Capital',
     services: 'Estratégia Digital, Plataforma Web & CRM',
@@ -207,7 +242,7 @@ export const PROJECTS: ProjectCase[] = [
     },
   },
   {
-    id: '05',
+    id: '06',
     slug: 'versatilidade-adaptabilidade',
     name: 'Versatilidade & Adaptabilidade',
     services: 'Estúdio Integrado, Ecossistema & Execução',
@@ -312,8 +347,8 @@ export const SERVICES_CONTENT = {
         'Testes controlados e otimização de funil',
         'Relatórios claros e decisões baseadas em fatos',
       ],
-      featuredCaseSlug: 'versatilidade-adaptabilidade',
-      image: '/images/case-versatilidade.jpg',
+      featuredCaseSlug: 'loja-z8',
+      image: '/images/case-z8.jpg',
     },
     {
       index: '05',

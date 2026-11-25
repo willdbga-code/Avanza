@@ -224,7 +224,7 @@ export const ServicesPage: React.FC<{
                               {relatedCase.name}
                             </p>
                             <p className="t-small-regular text-black/55">
-                              {relatedCase.services}
+                              {relatedCase.resultHighlight || relatedCase.services}
                             </p>
                           </div>
                           <DiagonalArrow className="mr-2 h-3 w-3 text-[#008DCD]" />

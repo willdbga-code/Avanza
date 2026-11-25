@@ -253,7 +253,7 @@ export const ProjectListBlock: React.FC<{
 
               {/* Bottom Corner Caption */}
               <div
-                className={`flex w-[18.5rem] max-w-full flex-col max-[767px]:grid max-[767px]:w-auto max-[767px]:grid-cols-[1fr_auto] max-[767px]:gap-x-4 ${
+                className={`flex w-[22rem] max-w-full flex-col max-[767px]:grid max-[767px]:w-auto max-[767px]:grid-cols-[1fr_auto] max-[767px]:gap-x-4 ${
                   isRight ? 'items-end max-[767px]:items-start' : 'items-start'
                 }`}
               >
@@ -263,6 +263,12 @@ export const ProjectListBlock: React.FC<{
                 <span className="t-text text-black/50">
                   {project.services}
                 </span>
+                {project.resultHighlight && (
+                  <span className="t-small mt-2 inline-flex items-center gap-1.5 text-[#005A7A] max-[767px]:col-span-2">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#00C2FF]" />
+                    <span>{project.resultHighlight}</span>
+                  </span>
+                )}
                 <span className="t-text hidden text-black/45 max-[767px]:col-start-2 max-[767px]:row-start-1 max-[767px]:block max-[767px]:text-right">
                   {project.year}
                 </span>
