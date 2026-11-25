@@ -315,62 +315,66 @@ export const StudioPage: React.FC<{
         </div>
       </section>
 
-      {/* Precursores / Founders Section (William Del Barrio & Higor Freitas Alves) */}
+      {/* Liderança Section (William Del Barrio, Higor Freitas, Clara Tuetto & Christian Hideyuki) */}
       <section className="bg-white px-[1.625rem] pb-24 pt-6 text-black max-[767px]:pb-14">
         <div className="border-t border-black/12 pt-14">
           <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <Eyebrow label="Precursores" tone="dark" />
-            <p className="t-body max-w-[30rem] text-black/65">
-              Duas trajetórias complementares — estética autoral em chiaroscuro e disciplina cinematográfica de campo — reunidas para construir ecossistemas naturais.
+            <Eyebrow label="Liderança" tone="dark" />
+            <p className="t-body max-w-[34rem] text-black/65">
+              Fundação e direção integradas — estética autoral, audiovisual, estratégia e execução reunidos para construir ecossistemas naturais de crescimento.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            {STUDIO_CONTENT.founders.map((founder) => (
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {STUDIO_CONTENT.founders.map((member) => (
               <article
-                key={founder.name}
+                key={member.name}
                 className="group flex flex-col"
               >
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#0A1115]">
                   <img
-                    src={founder.photo}
-                    alt={founder.name}
+                    src={member.photo}
+                    alt={member.name}
                     loading="lazy"
                     className="h-full w-full object-cover object-top transition-transform duration-700 ease-out-expo group-hover:scale-[1.03]"
                   />
                 </div>
-                <div className="mt-5 flex items-baseline justify-between gap-4 border-t border-black/12 pt-4">
+                <div className="mt-5 flex flex-col gap-2 border-t border-black/12 pt-4">
                   <div>
-                    <h3 className="text-[1.45rem] font-medium tracking-[-0.02em] text-black">
-                      {founder.name}
+                    <h3 className="text-[1.28rem] font-medium tracking-[-0.02em] text-black">
+                      {member.name}
                     </h3>
                     <p className="t-small-regular mt-1 text-[#005A7A]">
-                      {founder.role}
+                      {member.role}
                     </p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <a
-                      href={founder.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="t-small hover-underline text-black/75 hover:text-black"
-                    >
-                      {founder.handle}
-                    </a>
-                    {founder.website && (
-                      <a
-                        href={founder.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="t-small hover-underline text-[#008DCD]"
-                      >
-                        Site
-                      </a>
-                    )}
-                  </div>
+                  {(member.instagram || member.website) && (
+                    <div className="flex items-center gap-3 pt-0.5">
+                      {member.instagram && member.handle && (
+                        <a
+                          href={member.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="t-small hover-underline text-black/75 hover:text-black"
+                        >
+                          {member.handle}
+                        </a>
+                      )}
+                      {member.website && (
+                        <a
+                          href={member.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="t-small hover-underline text-[#008DCD]"
+                        >
+                          Site
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
-                <p className="t-text mt-3 max-w-[34rem] text-black/65">
-                  {founder.bio}
+                <p className="t-text mt-3 text-black/65">
+                  {member.bio}
                 </p>
               </article>
             ))}

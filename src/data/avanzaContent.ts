@@ -206,7 +206,7 @@ export const PROJECTS: ProjectCase[] = [
     quote: {
       text: 'O verdadeiro profissionalismo não grita. Quando a imagem atinge o mesmo nível técnico do produto, a autoridade se estabelece em segundos.',
       author: 'William Del Barrio',
-      role: 'Direção de Arte & Imagem, avanza',
+      role: 'Fundador · Direção de Arte & Imagem, avanza',
     },
   },
   {
@@ -270,8 +270,8 @@ export const PROJECTS: ProjectCase[] = [
     ],
     quote: {
       text: 'Não forçamos sua empresa a caber em um molde pronto. Desenhamos o estúdio e o ecossistema ao redor do que o seu negócio realmente precisa.',
-      author: 'Higor Freitas Alves',
-      role: 'Audiovisual & Execução, avanza',
+      author: 'Higor Freitas',
+      role: 'Diretor · Audiovisual & Execução, avanza',
     },
   },
 ]
@@ -408,21 +408,39 @@ export const STUDIO_CONTENT = {
   founders: [
     {
       name: 'William Del Barrio',
-      role: 'Co-fundador · Direção de Arte, Imagem & Essencialismo',
+      role: 'Fundador · Direção de Arte, Imagem & Estratégia',
       handle: '@william.delbarrio',
       instagram: 'https://www.instagram.com/william.delbarrio/',
       website: 'https://williamdelbarrio.com/',
       photo: '/images/founder-william.jpg',
-      bio: 'Especialista em fotografia conceitual, direção de arte e posicionamento visual de marca. Guiado pela estética da competência e pela luz precisa do chiaroscuro, remove o ruído digital para colocar foco absoluto na essência mais potente de cada empresa.',
+      bio: 'Fundador da avanza. Especialista em fotografia conceitual, direção de arte e posicionamento visual de marca. Guiado pela estética da competência e pela luz precisa do chiaroscuro, remove o ruído digital para colocar foco absoluto na essência de cada empresa.',
     },
     {
-      name: 'Higor Freitas Alves',
-      role: 'Co-fundador · Audiovisual, Estratégia & Execução de Campo',
+      name: 'Higor Freitas',
+      role: 'Diretor · Audiovisual, Estratégia & Execução',
       handle: '@freitas.hgr',
       instagram: 'https://www.instagram.com/freitas.hgr',
       website: '',
       photo: '/images/founder-higor.jpg',
-      bio: 'Filmmaker comercial e estrategista de execução orientado por disciplina, ritmo e constância. Une precisão de campo e narrativa audiovisual cinematográfica para transformar estratégia de marca em presença viva e resultado mensurável.',
+      bio: 'Diretor da avanza. Orientado por disciplina, ritmo e constância, une precisão de campo e narrativa audiovisual cinematográfica para transformar estratégia de marca em presença viva e resultado mensurável.',
+    },
+    {
+      name: 'Clara Tuetto',
+      role: 'Diretora · Estratégia & Direção Criativa',
+      handle: '',
+      instagram: '',
+      website: '',
+      photo: '/images/director-clara.jpg',
+      bio: 'Diretora da avanza. Conduz a escuta estratégica, a direção criativa e a coerência entre identidade, narrativa e experiência — assegurando que cada marca se comunique com clareza, elegância e verdade.',
+    },
+    {
+      name: 'Christian Hideyuki',
+      role: 'Diretor · Ecossistema & Performance',
+      handle: '',
+      instagram: '',
+      website: '',
+      photo: '/images/director-christian.jpg',
+      bio: 'Diretor da avanza. Atua na arquitetura operacional, gestão de performance e evolução dos ecossistemas digitais, conectando planejamento estratégico a crescimento previsível e mensurável.',
     },
   ],
   manifestoNote: {
